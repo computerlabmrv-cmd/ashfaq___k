@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hindi Padikkam | Learn Hindi with Animations</title>
+    <!-- Google Fonts & Tailwind + Additional CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons (for modern icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            min-height: 100vh;
+        }
+
+        /* smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* card hover 3d effect */
+        .learn-card {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            backdrop-filter: blur(2px);
+        }
+        .learn-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -12px rgba(79, 70, 229, 0.3);
+            border-bottom-width: 4px;
+        }
+
+        /* animated fade-up for grid items */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-card {
+            animation: fadeUp 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        /* staggered animation delay */
+        .grid-item {
+            opacity: 0;
+            animation: fadeUp 0.35s ease forwards;
+        }
+
+        /* quiz option button cool effects */
+        .quiz-option {
+            transition: all 0.2s ease;
+            transform: scale(1);
+        }
+        .quiz-option:hover:not(:disabled) {
+            transform: scale(1.02);
+            background-color: #e0e7ff;
+            border-color: #6366f1;
+        }
+        .quiz-option:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        /* floating nav shadow */
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            background-color: rgba(79, 70, 229, 0.92);
+        }
+
+        /* custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #818cf8;
+            border-radius: 10px;
+        }
+
+        /* section transition */
+        .section-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .word-badge {
+            background: linear-gradient(120deg, #f9fafb, #ffffff);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation with modern glassmorphism -->
+    <nav class="nav-blur text-white p-4 shadow-xl sticky top-0 z-50 border-b border-white/20">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-language text-2xl"></i>
+                <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">Hindi Padikkam</h1>
+            </div>
+            <div class="space-x-5">
+                <button onclick="showSection('learn')" class="font-medium px-3 py-1 rounded-full transition-all hover:bg-white/20 flex items-center gap-1"><i class="fas fa-book-open"></i> <span>Padikkam</span></button>
+                <button onclick="showSection('quiz')" class="font-medium px-3 py-1 rounded-full transition-all hover:bg-white/20 flex items-center gap-1"><i class="fas fa-question-circle"></i> <span>Quiz</span></button>
+                <button onclick="showSection('words')" class="font-medium px-3 py-1 rounded-full transition-all hover:bg-white/20 flex items-center gap-1"><i class="fas fa-words"></i> <span>Vakukal</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <!-- Learning Section (Aksharangal) -->
+        <section id="learn-section" class="section-transition">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-indigo-700 to-purple-700 bg-clip-text text-transparent">Hindi Aksharangal</h2>
+                <p class="text-gray-600 mt-2">ഹിന്ദി അക്ഷരങ്ങൾ ഉച്ചാരണത്തോടെ പഠിക്കാം ✨</p>
+            </div>
+
+            <!-- Swar (Vowels) -->
+            <div class="mb-14">
+                <div class="flex items-center gap-3 mb-5">
+                    <i class="fas fa-music text-indigo-500 text-2xl"></i>
+                    <h3 class="text-2xl font-bold text-indigo-800 border-l-4 border-indigo-500 pl-3">Swar (സ്വരങ്ങൾ) - Vowels</h3>
+                </div>
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-5" id="vowel-grid">
+                    <!-- JS will fill with animation -->
+                </div>
+            </div>
+
+            <!-- Vyanjan (Consonants) -->
+            <div class="mb-14">
+                <div class="flex items-center gap-3 mb-5">
+                    <i class="fas fa-microphone-alt text-green-600 text-2xl"></i>
+                    <h3 class="text-2xl font-bold text-green-800 border-l-4 border-green-500 pl-3">Vyanjan (വ്യഞ്ജനങ്ങൾ) - Consonants</h3>
+                </div>
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-5" id="consonant-grid">
+                </div>
+            </div>
+
+            <!-- Extra Akshar: additional advanced consonants -->
+            <div>
+                <div class="flex items-center gap-3 mb-5">
+                    <i class="fas fa-star text-amber-500 text-2xl"></i>
+                    <h3 class="text-2xl font-bold text-amber-700 border-l-4 border-amber-500 pl-3">Adhika Aksharangal (Additional)</h3>
+                </div>
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-5" id="extra-grid"></div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="section-transition hidden max-w-3xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-indigo-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-3xl font-bold text-indigo-800"><i class="fas fa-brain mr-2"></i>Quiz - Test Cheyyam</h2>
+                    <div class="bg-indigo-100 px-4 py-2 rounded-full text-indigo-800 font-bold"><i class="fas fa-trophy"></i> Score: <span id="score" class="text-xl">0</span></div>
+                </div>
+                <div id="quiz-container">
+                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-xl text-center mb-8">
+                        <p id="question" class="text-2xl md:text-3xl font-bold text-gray-800"></p>
+                    </div>
+                    <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    <div id="feedback" class="mt-6 text-center font-semibold p-4 rounded-xl hidden transition-all"></div>
+                    <button id="next-btn" onclick="generateQuestion()" class="hidden w-full mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"><i class="fas fa-forward"></i> Adutha Chodyam</button>
+                </div>
+                <div class="mt-6 text-center text-sm text-gray-500">
+                    <i class="fas fa-lightbulb"></i> അക്ഷരം കണ്ട് ശരിയായ ഉച്ചാരണം തിരഞ്ഞെടുക്കുക
+                </div>
+            </div>
+        </section>
+
+        <!-- Words Section (Vakukal) -->
+        <section id="words-section" class="section-transition hidden">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-emerald-700 to-teal-700 bg-clip-text text-transparent">Common Vakukal (വാക്കുകൾ)</h2>
+                <p class="text-gray-600 mt-2">ദിനംപ്രതി ഉപയോഗിക്കുന്ന ഹിന്ദി വാക്കുകൾ ഉദാഹരണങ്ങളോടെ</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="words-container">
+                <!-- dynamic words -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white/50 mt-12 py-6 text-center text-gray-500 border-t">
+        <p><i class="fas fa-heart text-red-400"></i> Hindi Padikkam - Aksharavum Vakukalum | Learn with joy</p>
+    </footer>
+
+    <script>
+        // --------------------------- ENHANCED DATA ---------------------------
+        const vowels = [
+            { h: 'अ', m: 'a' }, { h: 'आ', m: 'aa' }, { h: 'इ', m: 'i' }, { h: 'ई', m: 'ee' },
+            { h: 'उ', m: 'u' }, { h: 'ऊ', m: 'oo' }, { h: 'ऋ', m: 'ri' }, { h: 'ए', m: 'e' },
+            { h: 'ऐ', m: 'ai' }, { h: 'ओ', m: 'o' }, { h: 'औ', m: 'au' }, { h: 'अं', m: 'am' }, { h: 'अः', m: 'aha' }
+        ];
+
+        const consonants = [
+            { h: 'क', m: 'ka' }, { h: 'ख', m: 'kha' }, { h: 'ग', m: 'ga' }, { h: 'घ', m: 'gha' }, { h: 'ङ', m: 'nga' },
+            { h: 'च', m: 'cha' }, { h: 'छ', m: 'chha' }, { h: 'ज', m: 'ja' }, { h: 'झ', m: 'jha' }, { h: 'ञ', m: 'nya' },
+            { h: 'ट', m: 'ta' }, { h: 'ठ', m: 'tha' }, { h: 'ड', m: 'da' }, { h: 'ढ', m: 'dha' }, { h: 'ण', m: 'na' },
+            { h: 'त', m: 'ta' }, { h: 'थ', m: 'tha' }, { h: 'द', m: 'da' }, { h: 'ध', m: 'dha' }, { h: 'न', m: 'na' },
+            { h: 'प', m: 'pa' }, { h: 'फ', m: 'pha' }, { h: 'ब', m: 'ba' }, { h: 'भ', m: 'bha' }, { h: 'म', m: 'ma' },
+            { h: 'य', m: 'ya' }, { h: 'र', m: 'ra' }, { h: 'ल', m: 'la' }, { h: 'व', m: 'va' }, { h: 'श', m: 'sha' },
+            { h: 'ष', m: 'sha' }, { h: 'स', m: 'sa' }, { h: 'ह', m: 'ha' }, { h: 'क्ष', m: 'ksha' }, { h: 'त्र', m: 'tra' }, { h: 'ज्ञ', m: 'gya' }
+        ];
+
+        const extraAkshar = [
+            { h: 'ड़', m: 'da' }, { h: 'ढ़', m: 'dha' }, { h: 'क़', m: 'qa' }, { h: 'ख़', m: 'kha' }, 
+            { h: 'ग़', m: 'ga' }, { h: 'ज़', m: 'za' }, { h: 'फ़', m: 'fa' }, { h: 'य़', m: 'ya' }
+        ];
+
+        // Vocabulary list (Hindi word, Malayalam meaning, pronunciation hint)
+        const vocabulary = [
+            { hindi: "नमस्ते", malayalam: "നമസ്കാരം", pron: "namaste" },
+            { hindi: "पानी", malayalam: "വെള്ളം", pron: "paani" },
+            { hindi: "खाना", malayalam: "ഭക്ഷണം", pron: "khaana" },
+            { hindi: "अच्छा", malayalam: "നല്ലത്", pron: "achha" },
+            { hindi: "घर", malayalam: "വീട്", pron: "ghar" },
+            { hindi: "बहन", malayalam: "സഹോദരി", pron: "bahan" },
+            { hindi: "भाई", malayalam: "സഹോദരൻ", pron: "bhai" },
+            { hindi: "माँ", malayalam: "അമ്മ", pron: "maa" },
+            { hindi: "पिता", malayalam: "അച്ഛൻ", pron: "pita" },
+            { hindi: "स्कूल", malayalam: "വിദ്യാലയം", pron: "school" },
+            { hindi: "किताब", malayalam: "പുസ്തകം", pron: "kitaab" },
+            { hindi: "दोस्त", malayalam: "സുഹൃത്ത്", pron: "dost" },
+            { hindi: "फूल", malayalam: "പുഷ്പം", pron: "phool" },
+            { hindi: "सूरज", malayalam: "സൂര്യൻ", pron: "suraj" },
+            { hindi: "चाँद", malayalam: "ചന്ദ്രൻ", pron: "chaand" }
+        ];
+
+        let currentScore = 0;
+        let currentQuestionObj = null;
+
+        // Helper: Apply staggered animation to grid items
+        function applyStaggeredAnimation(containerId) {
+            const container = document.getElementById(containerId);
+            if(container) {
+                const items = container.children;
+                for(let i=0; i<items.length; i++) {
+                    items[i].style.animationDelay = `${i * 0.03}s`;
+                    items[i].classList.add('grid-item');
+                }
+            }
+        }
+
+        // Render all letter cards with modern design
+        function renderCards() {
+            const vowelGrid = document.getElementById('vowel-grid');
+            vowelGrid.innerHTML = '';
+            vowels.forEach((v, idx) => {
+                vowelGrid.innerHTML += `
+                    <div class="learn-card bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md text-center border-b-4 border-indigo-400 transition-all hover:bg-indigo-50">
+                        <div class="text-5xl mb-2 font-bold text-indigo-800">${v.h}</div>
+                        <div class="text-gray-500 text-sm font-medium flex items-center justify-center gap-1"><i class="fas fa-volume-down text-xs"></i> (${v.m})</div>
+                    </div>
+                `;
+            });
+
+            const consoGrid = document.getElementById('consonant-grid');
+            consoGrid.innerHTML = '';
+            consonants.forEach((c, idx) => {
+                consoGrid.innerHTML += `
+                    <div class="learn-card bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md text-center border-b-4 border-green-400 transition-all hover:bg-green-50">
+                        <div class="text-5xl mb-2 font-bold text-green-800">${c.h}</div>
+                        <div class="text-gray-500 text-sm"><i class="fas fa-microphone-alt mr-1"></i> ${c.m}</div>
+                    </div>
+                `;
+            });
+
+            const extraGrid = document.getElementById('extra-grid');
+            if(extraGrid) {
+                extraGrid.innerHTML = '';
+                extraAkshar.forEach(e => {
+                    extraGrid.innerHTML += `
+                        <div class="learn-card bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md text-center border-b-4 border-amber-400 transition-all hover:bg-amber-50">
+                            <div class="text-5xl mb-2 font-bold text-amber-700">${e.h}</div>
+                            <div class="text-gray-500 text-sm">${e.m}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            // apply staggered animations
+            applyStaggeredAnimation('vowel-grid');
+            applyStaggeredAnimation('consonant-grid');
+            if(extraGrid) applyStaggeredAnimation('extra-grid');
+        }
+
+        // Render vocabulary words with stylish cards
+        function renderVocabulary() {
+            const wordsContainer = document.getElementById('words-container');
+            wordsContainer.innerHTML = '';
+            vocabulary.forEach(word => {
+                wordsContainer.innerHTML += `
+                    <div class="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100">
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-3 text-white text-center">
+                            <span class="text-3xl font-bold">${word.hindi}</span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 text-gray-700 mb-3">
+                                <i class="fas fa-language text-emerald-600"></i>
+                                <span class="font-semibold">മലയാളം :</span>
+                                <span class="text-lg">${word.malayalam}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-500 text-sm bg-gray-50 p-2 rounded-lg">
+                                <i class="fas fa-head-side-vr"></i>
+                                <span>ഉച്ചാരണം : <span class="font-mono font-bold text-indigo-600">${word.pron}</span></span>
+                            </div>
+                            <div class="mt-3 text-right">
+                                <i class="fas fa-play-circle text-emerald-400 group-hover:text-emerald-600 transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Quiz generation with akshar + extra letters
+        function generateQuestion() {
+            const allChars = [...vowels, ...consonants, ...extraAkshar];
+            const correct = allChars[Math.floor(Math.random() * allChars.length)];
+            currentQuestionObj = correct;
+            
+            let options = [correct.m];
+            while(options.length < 4) {
+                let randomItem = allChars[Math.floor(Math.random() * allChars.length)].m;
+                if(!options.includes(randomItem)) options.push(randomItem);
+            }
+            options.sort(() => Math.random() - 0.5);
+            
+            document.getElementById('question').innerHTML = `<i class="fas fa-question-circle text-indigo-500 mr-2"></i> ഈ അക്ഷരം എങ്ങനെ ഉച്ചരിക്കും? <span class="text-5xl mx-3 bg-indigo-100 px-4 py-2 rounded-xl inline-block">${correct.h}</span>`;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerHTML = `<span class="text-lg font-medium">${opt}</span> <i class="fas fa-ear-listen text-indigo-400 ml-2 opacity-70"></i>`;
+                btn.className = "quiz-option bg-white border-2 border-gray-200 hover:border-indigo-400 p-4 rounded-xl flex justify-between items-center transition-all font-medium shadow-sm";
+                btn.onclick = () => checkAnswer(opt, correct.m, btn);
+                optionsDiv.appendChild(btn);
+            });
+            
+            const feedbackDiv = document.getElementById('feedback');
+            feedbackDiv.classList.add('hidden');
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.add('hidden');
+            // enable all option buttons when new question loads
+            const allBtns = document.querySelectorAll('#options button');
+            allBtns.forEach(btn => { btn.disabled = false; btn.style.opacity = '1'; });
+        }
+        
+        function checkAnswer(selected, correct, btnElement) {
+            const feedback = document.getElementById('feedback');
+            const allBtns = document.querySelectorAll('#options button');
+            allBtns.forEach(btn => btn.disabled = true);
+            
+            if(selected === correct) {
+                currentScore++;
+                feedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Correct! നല്ല പഠനം! "${correct}" എന്നാണ് ഉച്ചാരണം.`;
+                feedback.className = "mt-6 text-center font-bold p-4 rounded-xl bg-green-100 text-green-800 border border-green-300 flex items-center justify-center gap-2";
+                btnElement.classList.add('border-green-500', 'bg-green-50');
+            } else {
+                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ശരിയുത്തരം "${correct}" ആണ്. വീണ്ടും പരിശീലിക്കുക!`;
+                feedback.className = "mt-6 text-center font-bold p-4 rounded-xl bg-red-100 text-red-800 border border-red-300 flex items-center justify-center gap-2";
+                btnElement.classList.add('border-red-500', 'bg-red-50');
+                // highlight correct option visually
+                allBtns.forEach(btn => {
+                    if(btn.innerText.trim().startsWith(correct)) {
+                        btn.classList.add('border-green-400', 'bg-green-100');
+                    }
+                });
+            }
+            document.getElementById('score').innerText = currentScore;
+            feedback.classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+        
+        // Section toggling with smooth transitions
+        function showSection(section) {
+            const learnSec = document.getElementById('learn-section');
+            const quizSec = document.getElementById('quiz-section');
+            const wordsSec = document.getElementById('words-section');
+            
+            learnSec.classList.add('hidden');
+            quizSec.classList.add('hidden');
+            wordsSec.classList.add('hidden');
+            
+            if(section === 'learn') {
+                learnSec.classList.remove('hidden');
+                // re-trigger animation if needed
+            } else if(section === 'quiz') {
+                quizSec.classList.remove('hidden');
+                generateQuestion();
+            } else if(section === 'words') {
+                wordsSec.classList.remove('hidden');
+                if(document.getElementById('words-container').children.length === 0) renderVocabulary();
+            }
+        }
+        
+        // Additional helper: Add background animation to body (subtle)
+        function addBackgroundParticles() {
+            // just a nice decorative effect: create floating elements? lightweight.
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatSlow {
+                    0% { transform: translateY(0px) rotate(0deg); opacity: 0.03; }
+                    100% { transform: translateY(-40px) rotate(8deg); opacity: 0.08; }
+                }
+                body::before {
+                    content: "अ क ख ग घ";
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    font-size: 120px;
+                    color: #c7d2fe;
+                    opacity: 0.08;
+                    pointer-events: none;
+                    z-index: -1;
+                    white-space: pre;
+                    font-weight: bold;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Reset quiz score if needed and ensure fresh start
+        window.initQuizReset = function() {
+            currentScore = 0;
+            document.getElementById('score').innerText = '0';
+            if(document.getElementById('quiz-section') && !document.getElementById('quiz-section').classList.contains('hidden')) {
+                generateQuestion();
+            }
+        };
+        
+        // On load initialize everything
+        window.onload = () => {
+            renderCards();
+            renderVocabulary(); // preload words
+            addBackgroundParticles();
+            // start with learn section visible and prepped
+            showSection('learn');
+            // Additional: Attach score reset event on next question? Already handled inside.
+            // Make sure any existing next button uses global function
+            const nextBtn = document.getElementById('next-btn');
+            if(nextBtn) {
+                // already bound via onclick in HTML, but just ensure.
+            }
+            // enhance quiz score board persistence
+        };
+        
+        // expose to global for onclick
+        window.showSection = showSection;
+        window.generateQuestion = generateQuestion;
+        window.checkAnswer = checkAnswer;
+    </script>
+</body>
+</html>
